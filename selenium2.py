@@ -8,13 +8,15 @@ from prettyprinter import pprint
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import NoSuchElementException as ne
 import time
-
+import platform
 
 # 浏览器初始化准备
 def _init(url):
     chrome_options = Options()
     chrome_options.add_argument('--headless')
     chrome_options.add_argument('--disable-gpu')
+    if platform.system() == 'Linux':
+        chrome_options.add_argument('--no-sandbox')
     driver = webdriver.Chrome(chrome_options=chrome_options)
     driver.get(url)
 
